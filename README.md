@@ -72,10 +72,10 @@ Create a `.env` file in the `backend` directory and add your database configurat
 ```env
 DB_HOST=localhost
 DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=password123
-DB_NAME=Librius
-PORT=3000 # Backend will run on port 5000
+DB_USER=your_useranme
+DB_PASSWORD=your_password
+DB_NAME=database_name
+PORT=3000 # Backend will run on port 3000
 ```
 
 #### 6. Set up the database
