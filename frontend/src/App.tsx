@@ -1,18 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement } from './features/counter/counterSlice';
-import { RootState, AppDispatch } from './store';
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
-function App() {
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch<AppDispatch>();
-
+export default function App() {
   return (
-    <div className="App">
-      <h1>Count: {count}</h1>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-    </div>
+    <header>
+      <nav className=" container flex p-1 mx-auto">
+        <SignedOut>
+          <button className="text-background bg-primary px-5 py-2 rounded-lg">
+            <SignInButton />
+          </button>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </nav>
+    </header>
   );
 }
-
-export default App;
