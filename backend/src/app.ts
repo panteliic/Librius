@@ -1,13 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+var cookieParser = require('cookie-parser')
 import authRoutes from "./routes/auth.routes"
 import { errorHandler } from "./middleware/errorHandler";
+import passport from "./passport";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(passport.initialize());
 
 app.get("/", (req, res) => {
   res.send("Hello, World! TypeORM is connected.");

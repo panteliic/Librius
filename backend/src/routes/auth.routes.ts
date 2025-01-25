@@ -1,8 +1,22 @@
-const express = require("express")
-import {register,login} from "../controllers/auth.controller"
+const express = require("express");
+
+import {
+  register,
+  login,
+  protectedRoute,
+  refreshAccessToken,
+} from "../controllers/auth.controller";
+import passport from "../passport";
+
 const router = express.Router();
 
-router.get("/api/sign-up",register);
-router.get("/api/sign-in",login);
+router.post("/api/sign-up", register);
+router.post("/api/sign-in", login);
+router.post("/api/refreshToken", refreshAccessToken);
+router.get(
+  "/api/protected",
+  passport.authenticate("jwt", { session: false }),
+  protectedRoute
+);
 
 export default router;
