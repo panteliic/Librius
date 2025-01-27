@@ -1,3 +1,4 @@
+import logo from "../assets/logo.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -67,14 +68,14 @@ function Register() {
   return (
     <div className="flex">
       <div className="w-screen h-screen md:w-1/2 p-1 sm:p-9 flex justify-center items-center">
+        <div className="absolute left-0 top-9 flex items-center justify-between w-full px-9">
+          <img src={logo} alt="" width={100} />
+        </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-5 w-full"
-          >
-            <h1 className="text-4xl font-bold capitalize text-center text-card-foreground">
-              Sign up
-            </h1>
+          > 
             <div className="flex justify-between gap-5">
               <FormField
                 control={form.control}
