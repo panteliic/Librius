@@ -16,6 +16,16 @@ export const register = async (req, res) => {
   const hashPass = bcrypt.hashSync(password, salt);
 
   try {
+
+    const existingUser = await AppDataSource.getRepository(Users)
+      .createQueryBuilder("user")
+      .where("user.email = :email", { email })
+      .getOne();
+
+    if (existingUser) {
+      return res.status(400).send({ message: "Email already exists" });
+    }
+
     await AppDataSource.createQueryBuilder()
       .insert()
       .into(Users)
@@ -30,9 +40,11 @@ export const register = async (req, res) => {
 
     res.status(200).send({ message: "User created" });
   } catch (err) {
+    console.error(err);
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
