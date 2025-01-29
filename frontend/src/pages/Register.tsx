@@ -69,13 +69,15 @@ function Register() {
     <div className="flex">
       <div className="w-screen h-screen md:w-1/2 p-1 sm:p-9 flex justify-center items-center">
         <div className="absolute left-0 top-9 flex items-center justify-between w-full px-9">
-          <img src={logo} alt="" width={100} />
+          <a href="/">
+            <img src={logo} alt="" width={100} />
+          </a>
         </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-5 w-full"
-          > 
+          >
             <div className="flex justify-between gap-5">
               <FormField
                 control={form.control}
