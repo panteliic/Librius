@@ -6,9 +6,9 @@ import {
 } from "@/components/ui/popover";
 
 function SideBar() {
-  const user =null;
+  const user = {};
   return (
-    <div className="h-screen w-1/6 flex flex-col justify-between border-[#00000011] border-r-2">
+    <div className="h-screen w-1/5 flex flex-col justify-between border-[#00000011] border-r-2">
       <div className="flex gap-10 flex-col">
         <div className=" border-[#00000011] border-b-2 px-5 py-3 flex justify-between items-center h-16">
           <a href="/" className="text-3xl text-primary font-bold">
@@ -16,11 +16,11 @@ function SideBar() {
           </a>
         </div>
         <ul className="flex flex-col gap-7 px-5">
-          <li className="bg-primary p-2 text-primary-foreground rounded-md">
+          <li className="bg-primary text-primary-foreground p-2  rounded-md hover:bg-primary hover:text-primary-foreground transition delay-150 duration-300">
             <a href="/" className="flex gap-4 items-center text-xl">
               <svg
-                width="10%"
-                height="100%"
+                width="24px"
+                height="24px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -36,11 +36,11 @@ function SideBar() {
               Home
             </a>
           </li>
-          <li className=" p-2 text-foreground rounded-md">
+          <li className=" p-2 text-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition delay-150 duration-300">
             <a href="/" className="flex gap-4 items-center text-xl">
               <svg
-                width="10%"
-                height="100%"
+                width="24px"
+                height="24px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,11 +63,11 @@ function SideBar() {
               Library
             </a>
           </li>
-          <li className="p-2 text-foreground rounded-md">
+          <li className="p-2 text-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition delay-150 duration-300">
             <a href="/" className="flex gap-4 items-center text-xl">
               <svg
-                width="10%"
-                height="100%"
+                width="24px"
+                height="24px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -83,11 +83,11 @@ function SideBar() {
               Favorites
             </a>
           </li>
-          <li className=" p-2 text-foreground rounded-md">
+          <li className=" p-2 text-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition delay-150 duration-300">
             <a href="/" className="flex gap-4 items-center text-xl">
               <svg
-                width="10%"
-                height="100%"
+                width="24px"
+                height="24px"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,10 +115,10 @@ function SideBar() {
       {user !== null ? (
         <div>
           <Popover>
-            <PopoverTrigger className="border-[#00000011] border-t-2 px-5 py-2">
-              <div className="flex justify-between items-center p-2 rounded-md cursor-pointer text-foreground ">
-                <div className="flex gap-3 items-center">
-                  <Avatar className="w-10 h-10">
+            <PopoverTrigger className="border-[#00000011] border-t-2 px-5 py-2 w-full">
+              <div className="flex justify-between items-center p-2 rounded-md cursor-pointer text-foreground w-full ">
+                <div className="flex gap-1 items-center">
+                  <Avatar className="w-8 h-8">
                     <AvatarImage src="" className="" />
                     <AvatarFallback className="bg-primary text-primary-foreground">
                       NP
@@ -127,8 +127,8 @@ function SideBar() {
                   Nikola Pantelic
                 </div>
                 <svg
-                  width="10%"
-                  height="100%"
+                width="24px"
+                height="24px"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -146,8 +146,8 @@ function SideBar() {
             <PopoverContent className="flex flex-col border-[#00000020]">
               <button className=" rounded-md p-2 text-lg  flex gap-3  ">
                 <svg
-                  width="10%"
-                  height="100%"
+                width="24px"
+                height="24px"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -165,8 +165,8 @@ function SideBar() {
               <div className="w-full border-b-2 border-[#00000011]"></div>
               <button className=" rounded-md p-2 text-lg  flex gap-3 ">
                 <svg
-                  width="10%"
-                  height="100%"
+                width="24px"
+                height="24px"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -187,8 +187,8 @@ function SideBar() {
       ) : (
         <button className=" rounded-md p-3 text-lg  flex gap-3 px-5 py-3">
           <svg
-            width="10%"
-            height="100%"
+                width="24px"
+                height="24px"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
