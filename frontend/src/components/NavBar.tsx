@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 export default function NavBar() {
   return (
     <div className="border-[#00000011] border-b-2 px-5 py-3 flex justify-between items-center h-16">
-      <div className="text-muted-foreground bg-accent flex items-center p-1 rounded-md">
+      <div className="text-muted-foreground bg-accent flex items-center p-1 rounded-md ">
         <svg
           width="5%"
           height="100%"
@@ -22,8 +22,9 @@ export default function NavBar() {
         <Input
           type="text"
           placeholder="Search book..."
-          className="border-0 border-secondary focus-visible:outline-none focus-visible:ring-0 text-accent-foreground shadow-none"
+          className="border-0 border-secondary focus-visible:outline-none focus-visible:ring-0 text-accent-foreground shadow-none w-4/5"
         />
+
       </div>
     </div>
   );
