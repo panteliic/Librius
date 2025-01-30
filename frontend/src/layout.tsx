@@ -4,11 +4,11 @@ import NavBar from "./components/NavBar";
 
 export default function Layout() {
   return (
-    <div className="flex">
+    <div className="flex h-screen overflow-hidden">
       <SideBar />
-      <div className="w-full">
+      <div className="w-full h-full ">
         <NavBar />
-        <main className="p-4">
+        <main className="h-full">
           <Outlet />
         </main>
       </div>
