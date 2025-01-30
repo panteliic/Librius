@@ -69,8 +69,8 @@ function Register() {
     <div className="flex">
       <div className="w-screen h-screen md:w-1/2 p-1 sm:p-9 flex justify-center items-center">
         <div className="absolute left-0 top-9 flex items-center justify-between w-full px-9">
-          <a href="/">
-            <img src={logo} alt="" width={100} />
+          <a href="/" className={`text-3xl text-primary font-bold`}>
+            Librius.
           </a>
         </div>
         <Form {...form}>
