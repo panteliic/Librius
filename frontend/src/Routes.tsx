@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Layout from "./layout";
 import Home from "./App";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,14 +12,19 @@ import Chat from "./pages/Chat";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* Rute bez SideBar-a i NavBar-a */}
       <Route path="/auth/sign-in" element={<Login />} />
       <Route path="/auth/sign-up" element={<Register />} />
-      <Route path="/library" element={<Library />} />
-      <Route path="/favorites" element={<Favorites />} />
-      <Route path="/library" element={<Settings />} />
-      <Route path="/chat" element={<Chat />} />
       <Route path="*" element={<NotFound />} />
+
+      {/* Rute sa Layout-om */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/chat" element={<Chat />} />
+      </Route>
     </Routes>
   );
 };
