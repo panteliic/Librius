@@ -14,6 +14,9 @@ export { default as UserProfileIcon} from './assets/icons/User-Profile-Icon.svg?
 export { default as LogoutIcon} from './assets/icons/Logout-Icon.svg?react'
 export { default as LoginIcon} from './assets/icons/Login-Icon.svg?react'
 export { default as LayoutLeftIcon} from './assets/icons/Layout-Left-Icon.svg?react'
+export { default as SearchIcon} from './assets/icons/Search-Icon.svg?react'
+export { default as CloseIcon} from './assets/icons/Close-Icon.svg?react'
+export { default as MessageIcon} from './assets/icons/Message-Icon.svg?react'
 
 
 createRoot(document.getElementById("root")!).render(
