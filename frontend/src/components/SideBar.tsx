@@ -79,10 +79,10 @@ function SideBar() {
         </div>
         <ul className="flex flex-col gap-5 px-3 items-center">
           {menuItems.map(({ icon, text, link }, index) => (
-            <li key={index} className="w-full">
+            <li key={index} className="w-full ">
               <a
                 href={link}
-                className="flex items-center justify-start p-2 rounded-md text-foreground hover:bg-primary hover:text-primary-foreground transition duration-300 w-full"
+                className={`flex items-center justify-start p-2 rounded-md text-foreground hover:bg-primary hover:text-primary-foreground transition duration-300 w-full ${!visibleText && "justify-center"}`}
               >
                 {icon}
                 {visibleText && <span className="ml-4 text-xl">{text}</span>}
@@ -104,9 +104,9 @@ function SideBar() {
                   !visibleText && "justify-center w-full"
                 }`}
               >
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="" />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
+                <Avatar className="w-8 h-8 rounded">
+                  <AvatarImage src="" className=" rounded-md"/>
+                  <AvatarFallback className="bg-primary text-primary-foreground rounded-md">
                     NP
                   </AvatarFallback>
                 </Avatar>
