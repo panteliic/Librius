@@ -4,12 +4,17 @@ import { Provider } from "react-redux";
 import { store } from "./store.ts";
 import { BrowserRouter } from "react-router";
 import AppRoutes from "./Routes.tsx";
-import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { faTwitter, faFontAwesome } from '@fortawesome/free-brands-svg-icons'
+export { default as BookmarkIcon} from './assets/icons/Bookmark-Icon.svg?react'
+export { default as HomeIcon} from './assets/icons/Home-Icon.svg?react'
+export { default as CompassIcon} from './assets/icons/Compass-Icon.svg?react'
+export { default as GearIcon} from './assets/icons/Gear-Icon.svg?react'
+export { default as ChevronIcon} from './assets/icons/Chevron-Icon.svg?react'
+export { default as UserProfileIcon} from './assets/icons/User-Profile-Icon.svg?react'
+export { default as LogoutIcon} from './assets/icons/Logout-Icon.svg?react'
+export { default as LoginIcon} from './assets/icons/Login-Icon.svg?react'
+export { default as LayoutLeftIcon} from './assets/icons/Layout-Left-Icon.svg?react'
 
-library.add(fas ,faTwitter, faFontAwesome)
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

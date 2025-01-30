@@ -1,5 +1,6 @@
 import SideBar from "./components/SideBar";
 import NavBar from "./components/NavBar";
+
 export default function App() {
   return (
     <div className="flex ">
@@ -7,7 +8,6 @@ export default function App() {
       <div className="w-full">
         <NavBar/>
         <main>
-          gas
         </main>
       </div>
     </div>
