@@ -15,7 +15,6 @@ const AppRoutes = () => {
       <Route path="/auth/sign-in" element={<Login />} />
       <Route path="/auth/sign-up" element={<Register />} />
       <Route path="/library" element={<Library />} />
-      <Route path="/library" element={<Library />} />
       <Route path="/favorites" element={<Favorites />} />
       <Route path="/library" element={<Settings />} />
       <Route path="/chat" element={<Chat />} />
