@@ -54,7 +54,7 @@ function SideBar() {
   return (
     <motion.div
       animate={{ width: sidebarWidth }}
-      className={`h-screen flex flex-col justify-between border-r-2 border-[#00000011] overflow-hidden ${visibleText && " absolute bg-background md:relative"}`}
+      className={`bg-background h-screen flex flex-col justify-between border-r-2 border-[#00000011] overflow-hidden ${visibleText && " z-50 absolute bg-background md:relative"}`}
     >
       <div className="flex flex-col gap-9">
         <div
