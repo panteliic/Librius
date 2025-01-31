@@ -1,13 +1,15 @@
+import { SendIcon } from "@/main";
 import { Input } from "./ui/input";
 
 function ChatInput() {
   return (
-    <div className="border-[#00000011]  py-2 flex justify-between items-center h-16">
+    <div className="p-2 flex justify-between items-center h-16 rounded-md bg-[#00000021]">
       <Input
         type="text"
-        placeholder="Search book..."
-        className={`border-0 border-secondary focus-visible:outline-none focus-visible:ring-0 text-accent-foreground shadow-none`}
+        placeholder="Ask AI what to read next..."
+        className={`border-0 border-secondary focus-visible:outline-none focus-visible:ring-0 shadow-none placeholder:text-foreground text-foreground w-full`}
       />
+        <SendIcon width={24} height={24} />
     </div>
   );
 }
