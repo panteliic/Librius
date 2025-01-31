@@ -8,7 +8,7 @@ export default function Layout() {
       <SideBar />
       <div className="w-full h-full ">
         <NavBar />
-        <main className="h-full">
+        <main className="h-full relative">
           <Outlet />
         </main>
       </div>
