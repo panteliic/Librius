@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -19,13 +19,11 @@ import {
 } from "@/main";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useLogoutMutation } from "../store/apiSlice"; // Importuj useLogoutMutation
-import { setUser } from "../store/userSlice"; // Importuj setUser akciju
+import { useLogoutMutation } from "../store/apiSlice";
 
 function SideBar() {
   const user = useSelector((state: RootState) => state.user.user);
-  const dispatch = useDispatch();
-  const [logout] = useLogoutMutation(); // Koristi useLogoutMutation
+  const [logout] = useLogoutMutation(); 
 
   const menuItems = [
     { icon: <HomeIcon />, text: "Home", link: "/" },
