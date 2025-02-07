@@ -16,7 +16,6 @@ export const register = async (req, res) => {
   const hashPass = bcrypt.hashSync(password, salt);
 
   try {
-
     const existingUser = await AppDataSource.getRepository(Users)
       .createQueryBuilder("user")
       .where("user.email = :email", { email })
@@ -77,8 +76,13 @@ export const login = async (req, res) => {
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
-    res.status(200).send({ accessToken });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 15 * 60 * 1000,
+    });
+    res.status(200).send({ user: userWithoutPassword });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Internal Server Error" });
@@ -86,9 +90,26 @@ export const login = async (req, res) => {
 };
 export const refreshAccessToken = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
+  const accessToken = req.cookies.accessToken;
 
   if (!refreshToken) {
     return res.status(403).send("Refresh token not found");
+  }
+
+  if (accessToken) {
+    try {
+      const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+      const dbUser = await AppDataSource.getRepository(Users).findOne({
+        where: { id: decoded.sub },
+      });
+
+      if (dbUser) {
+        const { password: _, ...userWithoutPassword } = dbUser;
+        return res.status(200).json({ user: userWithoutPassword });
+      }
+    } catch (err) {
+      console.log("Access token invalid, refreshing...");
+    }
   }
 
   try {
@@ -100,8 +121,7 @@ export const refreshAccessToken = async (req, res) => {
       return res.status(403).send("Invalid refresh token");
     }
 
-    const isTokenExpired = tokenInDb.expiresAt < new Date();
-    if (isTokenExpired) {
+    if (tokenInDb.expiresAt < new Date()) {
       return res.status(403).send("Refresh token has expired");
     }
 
@@ -112,6 +132,7 @@ export const refreshAccessToken = async (req, res) => {
         if (err) {
           return res.status(403).send("Invalid refresh token");
         }
+
         const dbUser = await AppDataSource.getRepository(Users).findOne({
           where: { id: user.sub },
         });
@@ -119,10 +140,18 @@ export const refreshAccessToken = async (req, res) => {
         if (!dbUser) {
           return res.status(404).send("User not found");
         }
+
         const { password: _, ...userWithoutPassword } = dbUser;
         const newAccessToken = generateAccessToken(userWithoutPassword);
 
-        res.status(200).send({ accessToken: newAccessToken });
+        res.cookie("accessToken", newAccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "Strict",
+          maxAge: 15 * 60 * 1000,
+        });
+
+        res.status(200).send({ user: userWithoutPassword });
       }
     );
   } catch (err) {
@@ -130,6 +159,7 @@ export const refreshAccessToken = async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
+
 export const protectedRoute = async (req, res) => {
-  res.status(200).send("gas");
+  res.status(200).send(true);
 };

@@ -11,7 +11,9 @@ import { Users } from "./entity/User";
 
 dotenv.config();
 const options: StrategyOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    (req) => req?.cookies?.accessToken, 
+  ]),
   secretOrKey: process.env.JWT_ACCESS_SECRET,
 };
 
@@ -23,7 +25,7 @@ passport.use(
       });
 
       if (user) {
-        return done(null, user);
+        return done(null, user); 
       } else {
         return done(null, false);
       }
