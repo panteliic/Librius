@@ -12,12 +12,13 @@ import {
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
 import signInIlustration from "../assets/sign-in-ilustration.svg";
-import { useLoginMutation } from "../store/apiSlice"; // Import useLoginMutation hook
+import { useLoginMutation } from "../store/apiSlice"; 
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/store/userSlice"; // Redux action za postavljanje korisnika
+import { setUser } from "@/store/userSlice";
 import { RootState } from "@/store/store";
+import { useNavigate } from "react-router-dom"; 
 
-// Zod schema za validaciju
+
 const formSchema = z.object({
   email: z
     .string()
@@ -38,7 +39,8 @@ const formSchema = z.object({
 
 function Login() {
   const dispatch = useDispatch();
-  const [login, { isLoading, error }] = useLoginMutation(); // Hook za login
+  const navigate = useNavigate();
+  const [login, { isLoading, error }] = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,11 +48,13 @@ function Login() {
       password: "",
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await login(values).unwrap();
-      console.log("Logged in successfully", response);
-      dispatch(setUser(response?.user));
+      dispatch(setUser(response?.user)); 
+      form.reset(); 
+      navigate("/"); 
     } catch (err) {
       console.error("Login failed", error);
     }
@@ -58,7 +62,6 @@ function Login() {
 
   const user = useSelector((state: RootState) => state.user);
   console.log(user);
-  
 
   return (
     <div className="flex">

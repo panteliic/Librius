@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setUser } from "./userSlice"; // Kreiramo slice za user state
+import { setUser } from "./userSlice"; 
 
 interface User {
   firstName: string;
@@ -12,7 +12,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
-    credentials: "include", // Omogućava slanje i primanje HTTP-only kolačića
+    credentials: "include", 
   }),
   endpoints: (builder) => ({
     login: builder.mutation<{ user: User }, { email: string; password: string }>({
@@ -30,7 +30,7 @@ export const authApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setUser(data.user)); // Postavi osveženog korisnika u state
+          dispatch(setUser(data.user)); 
         } catch (err) {
           console.error("Refresh token error:", err);
         }
@@ -41,7 +41,16 @@ export const authApi = createApi({
         url: "/logout",
         method: "POST",
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(setUser(null));
+        } catch (err) {
+          console.error("Logout error:", err);
+        }
+      },
     }),
+    
   }),
 });
 

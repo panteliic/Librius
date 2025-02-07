@@ -3,6 +3,7 @@ import Message from "@/components/Message";
 import ScrollableFeed from "react-scrollable-feed";
 
 function Chat() {
+  
   const fetchMessages = async () => {
     const response = await fetch("http://localhost:3000/api/protected", {
       credentials: "include", 
