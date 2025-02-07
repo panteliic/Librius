@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
@@ -17,26 +18,29 @@ import {
   UserProfileIcon,
 } from "@/main";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useLogoutMutation } from "../store/apiSlice";
 
 function SideBar() {
+  const user = useSelector((state: RootState) => state.user.user);
+  const [logout] = useLogoutMutation(); 
+
   const menuItems = [
     { icon: <HomeIcon />, text: "Home", link: "/" },
     { icon: <CompassIcon />, text: "Library", link: "/library" },
     { icon: <BookmarkIcon />, text: "Favorites", link: "/favorites" },
     { icon: <GearIcon />, text: "Settings", link: "/settings" },
   ];
-  const user = null;
   const [visibleText, setVisibleText] = useState(window.innerWidth >= 768);
   const [sidebarWidth, setSidebarWidth] = useState("20%");
 
   useEffect(() => {
     const updateWidth = () => {
-
       setSidebarWidth(
         window.innerWidth < 640
           ? visibleText
-          ? "100%"
-          : "5rem"
+            ? "100%"
+            : "5rem"
           : window.innerWidth < 1280
           ? visibleText
             ? "36%"
@@ -51,6 +55,14 @@ function SideBar() {
     return () => window.removeEventListener("resize", updateWidth);
   }, [visibleText]);
 
+  const handleLogout = async () => {
+    try {
+      await logout(); 
+    } catch (error) {
+      console.error("Logout error:", error); 
+    }
+  };
+
   return (
     <motion.div
       animate={{ width: sidebarWidth }}
@@ -58,15 +70,11 @@ function SideBar() {
     >
       <div className="flex flex-col gap-9">
         <div
-          className={`border-b-2 border-[#00000011] px-5 py-3 flex justify-between items-center h-16 ${
-            !visibleText && "justify-center"
-          }`}
+          className={`border-b-2 border-[#00000011] px-5 py-3 flex justify-between items-center h-16 ${!visibleText && "justify-center"}`}
         >
           <a
             href="/"
-            className={`text-3xl text-primary font-bold ${
-              !visibleText && "hidden"
-            }`}
+            className={`text-3xl text-primary font-bold ${!visibleText && "hidden"}`}
           >
             Librius.
           </a>
@@ -92,25 +100,21 @@ function SideBar() {
         </ul>
       </div>
       <div className="border-t-2 border-[#00000011] p-3 flex items-center">
-        {!user ? (
+        {user ? (
           <Popover>
             <PopoverTrigger
-              className={`flex items-center justify-between gap-3 cursor-pointer w-full ${
-                !visibleText && "justify-center"
-              }`}
+              className={`flex items-center justify-between gap-3 cursor-pointer w-full ${!visibleText && "justify-center"}`}
             >
               <div
-                className={`flex items-center gap-1 ${
-                  !visibleText && "justify-center w-full"
-                }`}
+                className={`flex items-center gap-1 ${!visibleText && "justify-center w-full"}`}
               >
                 <Avatar className="w-8 h-8 rounded">
-                  <AvatarImage src="" className=" rounded-md"/>
+                  <AvatarImage src={user.profileImage ? user.profileImage : ""} className=" rounded-md"/>
                   <AvatarFallback className="bg-primary text-primary-foreground rounded-md">
-                    NP
+                    {user.firstName[0].toUpperCase()}{user.lastName[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                {visibleText && <p>Nikola Pantelic</p>}
+                {visibleText && <span>{user?.firstName} {user?.lastName}</span>}
               </div>
               {visibleText && <ChevronIcon />}
             </PopoverTrigger>
@@ -119,16 +123,16 @@ function SideBar() {
                 <UserProfileIcon /> Profile
               </button>
               <div className="w-full border-b-2 border-[#00000011]" />
-              <button className="p-2 flex gap-3">
+              <button className="p-2 flex gap-3" onClick={handleLogout}>
                 <LogoutIcon /> Log out
               </button>
             </PopoverContent>
           </Popover>
         ) : (
-          <button className="p-3 flex items-center gap-3 justify-start">
+          <a href="/auth/sign-in" className="p-3 flex items-center gap-3 justify-start">
             <LoginIcon />
             {visibleText && <span>Sign in</span>}
-          </button>
+          </a>
         )}
       </div>
     </motion.div>

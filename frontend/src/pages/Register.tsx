@@ -13,6 +13,7 @@ import {
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
 import signUpIlustration from "../assets/sign-up-ilustration.svg";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -59,11 +60,30 @@ function Register() {
       confirmPassword: "",
     },
   });
+  const navigate = useNavigate();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("http://localhost:3000/api/sign-up", {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to sign up, please try again.");
+      }
+
+      navigate("/auth/sign-in");
+  
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
   }
-
+  
   return (
     <div className="flex">
       <div className="w-screen h-screen md:w-1/2 p-1 sm:p-9 flex justify-center items-center">

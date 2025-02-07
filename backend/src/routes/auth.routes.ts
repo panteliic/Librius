@@ -1,11 +1,8 @@
 const express = require("express");
-
-import {
-  register,
-  login,
-  protectedRoute,
-  refreshAccessToken,
-} from "../controllers/auth.controller";
+import { login } from "../controllers/auth/login.controller";
+import { logout } from "../controllers/auth/logout.controller";
+import { refreshAccessToken } from "../controllers/auth/refreshToken.controller";
+import { register } from "../controllers/auth/register.controller";
 import passport from "../passport";
 
 const router = express.Router();
@@ -13,10 +10,7 @@ const router = express.Router();
 router.post("/api/sign-up", register);
 router.post("/api/sign-in", login);
 router.post("/api/refreshToken", refreshAccessToken);
-router.get(
-  "/api/protected",
-  passport.authenticate("jwt", { session: false }),
-  protectedRoute
-);
+router.post("/api/logout", logout);
+
 
 export default router;
