@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Users } from "./entity/User";
 import { RefreshTokens } from "./entity/RefreshToken";
+import { Book } from "./entity/Books";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: "Librius",
   synchronize: true,
   logging: false,
-  entities: [Users, RefreshTokens],
+  entities: [Users, RefreshTokens, Book],
   migrations: [],
   subscribers: [],
 });
