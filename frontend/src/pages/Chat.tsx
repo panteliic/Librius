@@ -6,7 +6,7 @@ function Chat() {
   return (
     <div className="h-[calc(100vh-4rem)] flex flex-col w-11/12 lg:w-3/4 xl:w-1/2 m-auto p-3">
       <div className="h-[calc(100%-2.5rem)]">
-        <ScrollableFeed className="aScrollBar rounded-md p-2 flex flex-col gap-4">
+        <ScrollableFeed className="ScrollBar rounded-md p-2 flex flex-col gap-4">
           <Message sender={true} />
           <Message sender={false} />
           <Message sender={true} />
