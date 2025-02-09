@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { BookCard } from "./BookCard";
 
 interface Book {
+  id:number;
   title: string;
   author: string;
   description: string;

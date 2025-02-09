@@ -1,6 +1,8 @@
 import { CameraOff } from "@/main";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 interface Book {
+  id:number;
   title: string;
   author: string;
   description: string;
@@ -22,7 +24,9 @@ export function BookCard(props: Book) {
         </div>
       )}
       <div className="bg-background p-4 rounded-lg ">
-        <h1 className="mt-3 text-lg font-semibold line-clamp-1">{props.title}</h1>
+        <h1 className="mt-3 text-lg font-semibold line-clamp-1">
+          {props.title}
+        </h1>
         <span className="text-sm text-muted-foreground">{props.author}</span>
         <p className="text-sm mt-2 text-card-foreground line-clamp-3">
           {props.description}
@@ -31,7 +35,9 @@ export function BookCard(props: Book) {
           {props.category}
         </span>
         <br />
-        <Button className="mt-3 w-full">Read more</Button>
+        <Link to={`/books/${props.title.split(" ").join("-")}?id=${props.id}`}>
+          <Button className="mt-3 w-full">Read more</Button>
+        </Link>
       </div>
     </div>
   );
