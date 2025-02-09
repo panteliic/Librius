@@ -3,6 +3,7 @@ const cors = require("cors");
 var cookieParser = require('cookie-parser')
 import authRoutes from "./routes/auth.routes"
 import aiRoutes from "./routes/ai.routes"
+import booksRoutes from "./routes/books.routes"
 import { errorHandler } from "./middleware/errorHandler";
 import passport from "./passport";
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.use(authRoutes);
 app.use(aiRoutes);
+app.use(booksRoutes);
 
 app.use(errorHandler);
 

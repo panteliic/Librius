@@ -22,4 +22,19 @@ export class Book {
 
   @Column({ nullable: true })
   category: string;
+
+  @Column({ nullable: true })
+  pdfUrl: string;  
+
+  @Column({ nullable: true })
+  fileSize: number;  
+
+  @Column({ nullable: true })
+  downloadLink: string;  
+
+  @Column({ default: false })
+  readable: boolean;  
+  
+  @Column({ default: false })  
+  isFeatured: boolean;
 }
