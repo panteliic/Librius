@@ -5,7 +5,7 @@ import { BookCard } from "./BookCard";
 interface Book {
   id:number;
   title: string;
-  author: string;
+  authors: string;
   description: string;
   category: string;
   thumbnail: string | null;

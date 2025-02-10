@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface Book {
   id:number;
   title: string;
-  author: string;
+  authors: string;
   description: string;
   category: string;
   thumbnail: string | null;
@@ -27,7 +27,7 @@ export function BookCard(props: Book) {
         <h1 className="mt-3 text-lg font-semibold line-clamp-1">
           {props.title}
         </h1>
-        <span className="text-sm text-muted-foreground">{props.author}</span>
+        <span className="text-sm text-muted-foreground">{props.authors}</span>
         <p className="text-sm mt-2 text-card-foreground line-clamp-3">
           {props.description}
         </p>
