@@ -1,28 +1,35 @@
-import { CameraOff } from "@/main";
+import { CameraOff, HeartIcon } from "@/main";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+
 interface Book {
-  id:number;
+  id: number;
   title: string;
   authors: string;
   description: string;
   category: string;
   thumbnail: string | null;
 }
+
 export function BookCard(props: Book) {
   return (
     <div className="bg-card text-card-foreground md:w-[calc(50%-0.5rem)] lg:w-[calc(33%-0.5rem)] xl:w-[calc(25%-0.5rem)] h-auto rounded-lg shadow-md flex flex-col justify-between">
-      {props.thumbnail ? (
-        <img
-          src={props.thumbnail}
-          alt="Book cover"
-          className="w-full h-60 object-contain rounded-lg py-4 "
-        />
-      ) : (
-        <div className="h-60 w-full flex justify-center items-center bg-gray-200 rounded-lg">
-          <CameraOff width={50} />
+      <div className="relative w-full h-60">
+        {props.thumbnail ? (
+          <img
+            src={props.thumbnail}
+            alt="Book cover"
+            className="w-full h-60 object-contain rounded-lg py-4 "
+          />
+        ) : (
+          <div className="h-60 w-full flex justify-center items-center bg-gray-200 rounded-lg">
+            <CameraOff width={50} />
+          </div>
+        )}
+        <div className="absolute top-2 right-2 cursor-pointer">
+          <HeartIcon width={30} />
         </div>
-      )}
+      </div>
       <div className="bg-background p-4 rounded-lg ">
         <h1 className="mt-3 text-lg font-semibold line-clamp-1">
           {props.title}

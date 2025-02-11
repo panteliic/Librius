@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/api/featuredBooks", getFeaturedBooks);
 router.get("/api/bookInfo/:id", bookInfo);
-router.get("/api/migratebooks", BookController.migrateBooks);
+router.get("/api/migratebooks", BookController.migrateBooks );
 router.post("/api/updateFeaturedBooks", updateFeaturedBooks);
 
 export default router;
