@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Book {
@@ -24,17 +24,29 @@ export class Book {
   category: string;
 
   @Column({ nullable: true })
-  pdfUrl: string;  
+  pdfUrl: string;
 
   @Column({ nullable: true })
-  fileSize: number;  
+  fileSize: number;
 
   @Column({ nullable: true })
-  downloadLink: string;  
+  downloadLink: string;
 
   @Column({ default: false })
-  readable: boolean;  
-  
-  @Column({ default: false })  
+  readable: boolean;
+
+  @Column({ default: false })
   isFeatured: boolean;
+
+  @Column({ nullable: true })
+  publisher: string; 
+
+  @Column({ nullable: true })
+  pageCount: number; 
+
+  @Column({ type: "float", nullable: true })
+  averageRating: number; 
+
+  @Column({ nullable: true })
+  ratingsCount: number; 
 }
