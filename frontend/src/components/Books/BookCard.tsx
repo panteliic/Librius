@@ -13,6 +13,7 @@ interface Book {
   category: string;
   thumbnail: string | null;
   isFavorite: boolean;
+  onFavoriteToggle?: (bookId: number) => void; 
 }
 
 export function BookCard(props: Book) {
@@ -20,26 +21,36 @@ export function BookCard(props: Book) {
   const [favorite, setFavorite] = useState(props.isFavorite);
   const navigate = useNavigate();
 
-  async function addFavorite() {
+  async function toggleFavorite() {
     if (!user) {
       navigate("/auth/sign-in");
+      return;
     }
+
+    const url = `${import.meta.env.VITE_API_URL}/${
+      favorite ? "remove-favorite" : "add-favorite"
+    }`;
+    const method = favorite ? "DELETE" : "POST";
+
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/add-favorites`, {
-        method: "POST",
+      await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          bookId: props.id,
-        }),
+        body: JSON.stringify({ bookId: props.id }),
       });
-      setFavorite(true);
+
+      setFavorite(!favorite);
+      if (favorite && props.onFavoriteToggle) {
+        props.onFavoriteToggle(props.id);
+      }
     } catch (err) {
-      console.error("Add to favorite failed", err);
+      console.error("Failed to update favorite status", err);
     }
   }
+
   return (
     <div className="bg-card text-card-foreground md:w-[calc(50%-0.5rem)] lg:w-[calc(33%-0.5rem)] xl:w-[calc(25%-0.5rem)] h-auto rounded-lg shadow-md flex flex-col justify-between">
       <div className="relative w-full h-60">
@@ -56,13 +67,11 @@ export function BookCard(props: Book) {
         )}
         <div
           className="absolute top-2 right-2 cursor-pointer"
-          onClick={addFavorite}
+          onClick={toggleFavorite}
         >
           <HeartIcon
             width={30}
-            className={
-              props.isFavorite || favorite ? "fill-red-600" : "fill-none"
-            }
+            className={favorite ? "fill-red-600" : "fill-none stroke-red-600"}
           />
         </div>
       </div>

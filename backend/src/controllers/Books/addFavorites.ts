@@ -5,7 +5,11 @@ import { Book } from "../../entity/Books";
 import { AppDataSource } from "../../data-source";
 
 export const addFavorite = async (req: Request, res: Response) => {
-  const { bookId, userId } = req.body;
+  const { bookId } = req.body;
+  const userId = (req as any).user.id 
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized: User not found" });
+  }
 
   try {
     const favoriteRepository = AppDataSource.getRepository(Favorites);
