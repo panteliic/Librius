@@ -1,6 +1,9 @@
 import { CameraOff, HeartIcon } from "@/main";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useState } from "react";
 
 interface Book {
   id: number;
@@ -9,9 +12,34 @@ interface Book {
   description: string;
   category: string;
   thumbnail: string | null;
+  isFavorite: boolean;
 }
 
 export function BookCard(props: Book) {
+  const user = useSelector((state: RootState) => state.user.user);
+  const [favorite, setFavorite] = useState(props.isFavorite);
+  const navigate = useNavigate();
+
+  async function addFavorite() {
+    if (!user) {
+      navigate("/auth/sign-in");
+    }
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/add-favorites`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          bookId: props.id,
+        }),
+      });
+      setFavorite(true);
+    } catch (err) {
+      console.error("Add to favorite failed", err);
+    }
+  }
   return (
     <div className="bg-card text-card-foreground md:w-[calc(50%-0.5rem)] lg:w-[calc(33%-0.5rem)] xl:w-[calc(25%-0.5rem)] h-auto rounded-lg shadow-md flex flex-col justify-between">
       <div className="relative w-full h-60">
@@ -26,8 +54,16 @@ export function BookCard(props: Book) {
             <CameraOff width={50} />
           </div>
         )}
-        <div className="absolute top-2 right-2 cursor-pointer">
-          <HeartIcon width={30} />
+        <div
+          className="absolute top-2 right-2 cursor-pointer"
+          onClick={addFavorite}
+        >
+          <HeartIcon
+            width={30}
+            className={
+              props.isFavorite || favorite ? "fill-red-600" : "fill-none"
+            }
+          />
         </div>
       </div>
       <div className="bg-background p-4 rounded-lg ">
