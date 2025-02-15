@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Favorites } from "./Favorites";
 
 @Entity()
 export class Users {
@@ -19,4 +20,7 @@ export class Users {
 
   @Column("varchar", { length: 256, nullable: true })
   profileImage: string;
+  
+  @OneToMany(() => Favorites, (favorite) => favorite.user)
+  favorites: Favorites[];
 }
