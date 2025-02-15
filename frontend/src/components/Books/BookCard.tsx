@@ -1,6 +1,6 @@
 import { CameraOff, HeartIcon } from "@/main";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useState } from "react";
@@ -12,13 +12,18 @@ interface Book {
   description: string;
   category: string;
   thumbnail: string | null;
+  isFavorite: boolean;
 }
 
 export function BookCard(props: Book) {
   const user = useSelector((state: RootState) => state.user.user);
-  const [favorite, setFavorite] = useState(false);
-  
+  const [favorite, setFavorite] = useState(props.isFavorite);
+  const navigate = useNavigate();
+
   async function addFavorite() {
+    if (!user) {
+      navigate("/auth/sign-in");
+    }
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/add-favorites`, {
         method: "POST",
@@ -27,7 +32,6 @@ export function BookCard(props: Book) {
         },
         credentials: "include",
         body: JSON.stringify({
-          userId: user?.id,
           bookId: props.id,
         }),
       });
@@ -56,7 +60,9 @@ export function BookCard(props: Book) {
         >
           <HeartIcon
             width={30}
-            className={favorite ? "fill-red-600" : "fill-none"}
+            className={
+              props.isFavorite || favorite ? "fill-red-600" : "fill-none"
+            }
           />
         </div>
       </div>
