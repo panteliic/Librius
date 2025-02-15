@@ -22,7 +22,7 @@ const Book = () => {
     const fetchBook = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/bookInfo/${id}`
+          `${import.meta.env.VITE_API_URL}/book-info/${id}`
         );
 
         if (!response.ok) {

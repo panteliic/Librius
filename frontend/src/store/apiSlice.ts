@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setUser } from "./userSlice"; 
 
 interface User {
+  id:number;
   firstName: string;
   lastName: string;
   email: string;
@@ -24,7 +25,7 @@ export const authApi = createApi({
     }),
     refresh: builder.mutation<{ user: User }, void>({
       query: () => ({
-        url: "/refreshToken",
+        url: "/refresh-token",
         method: "POST",
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {

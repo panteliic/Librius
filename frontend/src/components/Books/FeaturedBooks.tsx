@@ -18,7 +18,7 @@ function FeaturedBooks() {
     const fetchFeaturedBooks = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/featuredBooks`
+          `${import.meta.env.VITE_API_URL}/featured-books`
         );
         const result = await response.json();
         console.log(result);
