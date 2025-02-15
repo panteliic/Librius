@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/api/sign-up", register);
 router.post("/api/sign-in", login);
-router.post("/api/refreshToken", refreshAccessToken);
+router.post("/api/refresh-token", refreshAccessToken);
 router.post("/api/logout", logout);
 
 
