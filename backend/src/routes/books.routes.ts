@@ -5,6 +5,7 @@ import {
   getFeaturedBooks,
   updateFeaturedBooks,
 } from "../controllers/Books/featuerdBooks.controller";
+import { getBooks } from "../controllers/Books/getBooks";
 import { BookController } from "../controllers/Books/migratebooks.controller.";
 import { removeFavorite } from "../controllers/Books/removeFavorite";
 import passport from "../passport";
@@ -30,5 +31,5 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   removeFavorite
 );
-
+router.get("/api/books", getBooks);
 export default router;
