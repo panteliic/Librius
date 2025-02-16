@@ -13,7 +13,7 @@ interface Book {
   category: string;
   thumbnail: string | null;
   isFavorite: boolean;
-  onFavoriteToggle?: (bookId: number) => void; 
+  onFavoriteToggle?: (bookId: number) => void;
 }
 
 export function BookCard(props: Book) {
@@ -57,7 +57,7 @@ export function BookCard(props: Book) {
         {props.thumbnail ? (
           <img
             src={props.thumbnail}
-            alt="Book cover"
+            alt={props.title}
             className="w-full h-60 object-contain rounded-lg py-4 "
           />
         ) : (
