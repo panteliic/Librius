@@ -12,36 +12,35 @@ export function ChatInput() {
   const handleSendMessage = async () => {
     if (input.trim() === "" || isLoading) return;
 
-    // Dispatch the user's message to the Redux store
-    dispatch(addMessage({ message: input, sender: true }));
-    setInput(""); // Clear the input field
-    setIsLoading(true); // Set loading state to true
+    dispatch(addMessage({ message: input, sender: true })); 
+    setInput("");
+    setIsLoading(true);
 
     try {
-      // Send the user's input to the API
       const response = await fetch(`${import.meta.env.VITE_API_URL}/prompt`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
 
-      // Check if the response is successful
       if (!response.ok) {
         throw new Error("Failed to fetch response from AI");
       }
-      console.log(response);
 
-      const data = await response.text();
+      const data = await response.json();
+      const books = Array.isArray(data.books) ? data.books : [];
 
-      // Assuming the AI response is stored in data.response.text or adjust according to the API response format
-      const aiResponse = data|| "Sorry, I couldn't generate a response.";
+      const bookListHtml = `<ul classname="list-disc">${books
+        .map((book:string) => `<li>${book}</li>`)
+        .join("")}</ul>`;
 
-      // Dispatch the AI's response to the Redux store
-      dispatch(addMessage({ message: aiResponse, sender: false }));
+      dispatch(
+        addMessage({ message: bookListHtml, sender: false, isHtml: true })
+      );
     } catch (error) {
       console.error("Error communicating with the API", error);
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
 
