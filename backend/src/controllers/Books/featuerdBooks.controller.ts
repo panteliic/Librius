@@ -29,33 +29,22 @@ export const updateFeaturedBooks = async () => {
   } catch (error) {
     console.error("[CRON] Error setting random featured books:", error);
   }
-};
-export const getFeaturedBooks = async (req: Request, res: Response) => {
+};export const getFeaturedBooks = async (req: Request, res: Response) => {
   try {
     const bookRepository = AppDataSource.getRepository(Book);
-    const favoriteRepository = AppDataSource.getRepository(Favorites);
-
     const userId = Number(req.params.userId);
 
-    const featuredBooks = await bookRepository.find({
-      where: { isFeatured: true },
-      take: 10,
-    });
-
-    let userFavorites: number[] = [];
-
-    if (userId) {
-      const favorites = await favoriteRepository.find({
-        where: { user: { id: userId } },
-        relations: ["book"],
-      });
-
-      userFavorites = favorites.map((fav) => fav.book.id);
-    }
+    const featuredBooks = await bookRepository
+      .createQueryBuilder("book")
+      .leftJoinAndSelect("book.favorites", "favorite")
+      .leftJoinAndSelect("favorite.user", "user")
+      .where("book.isFeatured = :isFeatured", { isFeatured: true })
+      .take(10)
+      .getMany();
 
     const booksWithFavorites = featuredBooks.map((book) => ({
       ...book,
-      isFavorite: userFavorites.includes(book.id),
+      isFavorite: book.favorites.some((fav) => fav.user?.id === userId),
     }));
 
     return res.status(200).json(booksWithFavorites);

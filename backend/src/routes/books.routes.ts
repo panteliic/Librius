@@ -31,5 +31,5 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   removeFavorite
 );
-router.get("/api/books", getBooks);
+router.get("/api/books/:userId", getBooks);
 export default router;

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/pagination";
 import { BookCard } from "@/components/Books/BookCard";
 import Loading from "@/components/loading";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 interface Book {
   id: number;
   title: string;
@@ -27,16 +29,18 @@ function Library() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
-
+  const user = useSelector((state: RootState) => state.user.user);
   const fetchBooks = async (pageNumber: number) => {
     try {
       setLoading(true);
+      const userId = user?.id || 0; 
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/books?page=${pageNumber}`
+        `${import.meta.env.VITE_API_URL}/books/${userId}?page=${pageNumber}`
       );
       if (!res.ok) throw new Error("Neuspešno učitavanje knjiga");
 
       const data = await res.json();
+      
       setBooks(data.data);
       setTotalPages(data.totalPages);
     } catch (error) {
