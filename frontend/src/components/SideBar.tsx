@@ -19,6 +19,7 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLogoutMutation } from "../store/apiSlice";
+import { Link } from "react-router";
 
 function SideBar() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -137,9 +138,9 @@ function SideBar() {
               {visibleText && <ChevronIcon />}
             </PopoverTrigger>
             <PopoverContent className="flex flex-col border-[#00000020] p-2">
-              <button className="p-2 flex gap-3">
+              <Link className="p-2 flex gap-3" to="/profile">
                 <UserProfileIcon /> Profile
-              </button>
+              </Link>
               <div className="w-full border-b-2 border-[#00000011]" />
               <button className="p-2 flex gap-3" onClick={handleLogout}>
                 <LogoutIcon /> Log out

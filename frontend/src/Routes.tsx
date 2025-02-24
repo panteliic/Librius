@@ -8,6 +8,7 @@ import Favorites from "./pages/FavortiesBook";
 import Chat from "./pages/Chat";
 import Book from "./pages/Book";
 import Library from "./pages/Library";
+import Profile from "./pages/Profile";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,8 @@ const AppRoutes = () => {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/books/:book" element={<Book />} />
+        <Route path="/profile" element={<Profile />} />
+
       </Route>
     </Routes>
   );
