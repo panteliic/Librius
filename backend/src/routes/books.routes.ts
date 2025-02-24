@@ -8,6 +8,7 @@ import {
 import { getBooks } from "../controllers/Books/getBooks";
 import { BookController } from "../controllers/Books/migratebooks.controller.";
 import { removeFavorite } from "../controllers/Books/removeFavorite";
+import { searchBooks } from "../controllers/Books/searchBook";
 import passport from "../passport";
 const express = require("express");
 const router = express.Router();
@@ -32,4 +33,7 @@ router.delete(
   removeFavorite
 );
 router.get("/api/books/:userId", getBooks);
+router.get("/api/search-books", searchBooks);
+
+
 export default router;

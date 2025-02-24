@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 interface Book {
   id: number;
@@ -10,14 +10,15 @@ interface Book {
   thumbnail: string | null;
 }
 
-const Book = () => {
+const BookDetails = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const id = searchParams.get("id");
 
-  const [book, setBook] = useState<Book | null>(null); 
-  
+  const [book, setBook] = useState<Book | null>(null);
+
   useEffect(() => {
-    if (!id) return; 
+    if (!id) return;
 
     const fetchBook = async () => {
       try {
@@ -37,25 +38,33 @@ const Book = () => {
     };
 
     fetchBook();
-  }, [id]); 
+  }, [id]);
 
   return (
-    <div className="flex items-center h-2/3 w-full">
+    <div className="flex flex-col items-center p-10 w-full h-screen">
+      <button 
+        onClick={() => navigate(-1)} 
+        className="m-5 px-4 py-2 bg-primary text-primary-foreground rounded absolute left-10 top-1"
+      >
+        Back
+      </button>
       {book ? (
-        <div className="flex gap-10 px-5 w-full items-start ">
-          {book.thumbnail && <img src={book.thumbnail} alt={book.title} className=" w-1/5 "/>}
-          <div className="w-2/3 relative">
-            <h1 className="text-popover-foreground text-5xl font-bold">{book.title}</h1>
-            <p className="text-xl">{book.authors}</p>
-            <p className="mt-5 text-lg font-normal">{book.description}</p>
-            
+        <div className="w-full flex items-start gap-10 px-5 mt-10">
+          {book.thumbnail && (
+            <img src={book.thumbnail} alt={book.title} className="w-1/5" />
+          )}
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold">{book.title}</h1>
+            <p className="text-lg text-gray-700">by {book.authors}</p>
+            <p className="text-sm text-gray-500 italic">Category: {book.category}</p>
+            <p className="mt-5 text-gray-800">{book.description}</p>
           </div>
         </div>
       ) : (
-        <p>Loading book details...</p>
+        <p className="text-lg font-semibold">Loading book details...</p>
       )}
     </div>
   );
 };
 
-export default Book;
+export default BookDetails;
