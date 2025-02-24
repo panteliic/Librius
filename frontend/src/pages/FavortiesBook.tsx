@@ -48,7 +48,7 @@ function Favorites() {
   };
 
   return (
-    <div className="flex justify-start gap-2 flex-wrap  overflow-y-auto ScrollBar p-5 pb-20">
+    <div className="flex justify-start gap-2 flex-wrap h-full  overflow-y-auto ScrollBar p-5 pb-20">
       {books.length > 0 ? (
         books.map((book) => (
           <BookCard key={book.id} {...book} onFavoriteToggle={handleFavoriteToggle} />

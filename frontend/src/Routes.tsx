@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Favorites from "./pages/FavortiesBook";
-import Settings from "./pages/Settings";
 import Chat from "./pages/Chat";
 import Book from "./pages/Book";
 import Library from "./pages/Library";
@@ -23,7 +22,6 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/books/:book" element={<Book />} />
       </Route>
