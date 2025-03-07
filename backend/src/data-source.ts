@@ -7,11 +7,11 @@ import { Favorites } from "./entity/Favorites";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host:  process.env.DB_HOST,
   port: 5432,
-  username: "postgres",
-  password: "password123",
-  database: "Librius",
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
   entities: [Users, RefreshTokens, Book, Favorites],
